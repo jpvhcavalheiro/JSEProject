@@ -7,7 +7,7 @@ import repositories.ProductRepository;
 public class TextInterface {
 	public static void main(String[] args) {
 		initialMenu();
-		//ProductRepository pr = ProductRepository.getInstance();
+		ProductRepository pr = ProductRepository.getInstance();
 		/*
 		 * Scanner sc = new Scanner(System.in); String pressedKeybordsButtons =
 		 * sc.nextInt(); System.out.println("pressedKeybordsButtons");
@@ -33,7 +33,6 @@ public class TextInterface {
 				break;
 			case "3":
 				System.out.println("Application out.");
-				System.out.println(newKeys);
 				break;
 			default:
 				System.out.println(

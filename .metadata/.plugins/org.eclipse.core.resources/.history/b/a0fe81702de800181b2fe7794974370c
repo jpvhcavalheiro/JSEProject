@@ -1,8 +1,0 @@
-package io.altar.jseproject.textinterface;
-import java.util.Scanner;
-
-public class TextInterface {
-	Scanner sc = new Scanner(System.in);
-    String pressedKeybordsButtons = sc.nextInt();
-    System.out.println(pressedKeybordsButtons);
-}

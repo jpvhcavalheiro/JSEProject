@@ -33,7 +33,6 @@ public class TextInterface {
 				break;
 			case "3":
 				System.out.println("Application out.");
-				System.out.println(newKeys);
 				break;
 			default:
 				System.out.println(
