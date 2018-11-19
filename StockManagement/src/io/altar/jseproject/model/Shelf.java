@@ -1,16 +1,12 @@
 package io.altar.jseproject.model;
 
-public class Shelf {
-	private int id;
+public class Shelf extends Entity {
 	private String capacity;
 	private Product productInShelf;
 	private int rentPrice;
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
+	
+	
+
 	public String getCapacity() {
 		return capacity;
 	}
