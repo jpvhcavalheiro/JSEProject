@@ -3,6 +3,7 @@ package repositories;
 import io.altar.jseproject.model.Entity;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Collection;
 
 public abstract class EntityRepository<T extends Entity> {
@@ -10,7 +11,7 @@ public abstract class EntityRepository<T extends Entity> {
 	private Map<Long, T> map = new HashMap<Long, T>();
 	private long currentId = 0;
 
-	private long nextId(long currentId){
+	private long nextId(){
 		currentId++;
 		return currentId;
 	}
@@ -18,7 +19,7 @@ public abstract class EntityRepository<T extends Entity> {
 	public long createEntity(T entity) {
 		entity.setId(currentId);
 		map.put(entity.getId(), entity);
-		nextId(currentId);
+		nextId();
 		return entity.getId();
 	}
 	public T fetchEntityById(Long id) {
@@ -33,7 +34,7 @@ public abstract class EntityRepository<T extends Entity> {
 	public Map <Long, T> getMap() {
 		return map;
 	}
-	public Collection <T> showAll(){
-		return map.values();
+	public  Iterator<T> showAll(){
+		return map.values().iterator();
 	}
 }
