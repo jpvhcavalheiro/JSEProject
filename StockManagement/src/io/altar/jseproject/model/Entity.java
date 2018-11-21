@@ -2,6 +2,8 @@ package io.altar.jseproject.model;
 
 public class Entity {
 	private long id;
+	
+	
 	public long getId() {
 		return id;
 	}
