@@ -25,7 +25,7 @@ public class Shelf extends Entity {
 	public long getProductIdInShelf() {
 		return productIdInShelf;
 	}
-	public void setProductIdInShelf(int newProductIdInShelf) {
+	public void setProductIdInShelf(long newProductIdInShelf) {
 		this.productIdInShelf = newProductIdInShelf;
 	}
 	public int getRentPrice() {

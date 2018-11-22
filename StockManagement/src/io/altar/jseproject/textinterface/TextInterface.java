@@ -60,20 +60,14 @@ public class TextInterface {
 			case "1":
 				createProduct();
 				break;
-			case "2": // editProduct();
-				System.out.println(
-						"We are sorry,but this application is still under construction. Please choose one of the remaining options.");
+			case "2":
+				editProduct();
 				break;
 			case "3":
 				consultProduct();
 				break;
 			case "4":
 				removeProduct();
-				/*
-				 * System.out.println(
-				 * "We are sorry,but this application is still under construction. Please choose one of the remaining options."
-				 * );
-				 */
 				break;
 			case "5":
 				initialMenu();
@@ -100,16 +94,14 @@ public class TextInterface {
 			case "1":
 				createShelf();
 				break;
-			case "2":// editShelf();
-				System.out.println(
-						"We are sorry,but this application is still under construction. Please choose one of the remaining options.");
+			case "2":
+				editShelf();
 				break;
 			case "3":
 				consultShelf();
 				break;
-			case "4":// removeShelf();
-				System.out.println(
-						"We are sorry,but this application is still under construction. Please choose one of the remaining options.");
+			case "4":
+				removeShelf();
 				break;
 			case "5":
 				initialMenu();
@@ -205,7 +197,12 @@ public class TextInterface {
 	}
 
 	/**
-	 * 
+	 * removeProduct is a method which receives the product which is to be
+	 * removed and remove it from the product repository
+	 */
+	/*
+	 * editar a prateleira de forma a que o id do produto que foi eliminado
+	 * desapareça da prateleira associada
 	 */
 	public static void removeProduct() {
 		System.out.println("Please insert the product id you want to remove:");
@@ -218,10 +215,95 @@ public class TextInterface {
 	}
 
 	/**
-	 * 
+	 * removeShelf is a method which receives (as a input from the user) the
+	 * shelf id which is to be removed and remove it from the shelf repository
 	 */
+	/*
+	 * editar a lista das prateleiras de forma a que o id da prateleira que foi
+	 * eliminada desapareça da lista de prateleiras do produto correspondente
+	 */
+	/* se possa pôr prateleiras vazias */
+	/* funcione se o input nao for do tipo correcto */
+	/* verifique se existe o id */
+
 	public static void removeShelf() {
 		System.out.println("Please insert the shelf id you want to remove:");
-		String shelfIdToRemove=sc.nextLine();
+		String shelfIdToRemove = sc.nextLine();
+		System.out.println("Are you sure you want to remove the product whose id is " + shelfIdToRemove + "?");
+		String confirmationOfShelfIdToRemove = sc.nextLine();
+		if (confirmationOfShelfIdToRemove.equals("yes")) {
+			shelfRepository1.deleteEntityById(Long.parseLong(shelfIdToRemove));
+		}
+	}
+
+	/**
+	 * editProduct() is a method which receives a new discount value, a new IVA
+	 * or a new price (as inputs from the user) and change these features of the
+	 * referred product in the product repository
+	 */
+	// ?mudar editProduct de modo a que:
+	/* se possa mudar a lista de prateleiras que contêm o produto */
+	/* só receba valores com sentido */
+	public static void editProduct() {
+		System.out.println("Please insert the id of the product you want to edit:");
+		String productIdToEdit = sc.nextLine();
+		Product productToEdit = productRepository1.fetchEntityById(Long.parseLong(productIdToEdit));
+		System.out.println("Initial discount value: " + productToEdit.getDiscount()
+				+ ". Please insert a new discount value or insert the same value:");
+		int updatedProductDiscount = sc.nextInt();
+		productToEdit.setDiscount(updatedProductDiscount);
+		System.out.println(
+				"Initial IVA: " + productToEdit.getIva() + ". Please insert a new IVA or insert the same value:");
+		int updatedProductIva = sc.nextInt();
+		productToEdit.setIva(updatedProductIva);
+		System.out.println(
+				"Initial Price: " + productToEdit.getPvp() + ". Please insert a new price or insert the same value:");
+		int updatedProductPvp = sc.nextInt();
+		sc.nextLine();
+		productToEdit.setPvp(updatedProductPvp);
+		productRepository1.changeEntityById(productToEdit);
+		productRepository1.showAll();
+	}
+
+	/**
+	 * the method editShelf receives the id of the shelf to change, the new
+	 * capacity of this shelf, the product id which is in this shelf and a new
+	 * rent price (as inputs by the user) and changes the shelf in the
+	 * shelfRepository1
+	 */
+
+	public static void editShelf() {
+		System.out.println("Please insert the id of the shelf you want to edit");
+		String shelfIdToEdit = sc.nextLine();
+		Shelf shelfToEdit = shelfRepository1.fetchEntityById(Long.parseLong(shelfIdToEdit));
+		System.out.println("Initial capacity: " + shelfToEdit.getCapacity()
+				+ ". Please insert a new capacity or insert the same value:");
+		String updatedCapacity = sc.nextLine();
+		shelfToEdit.setCapacity(updatedCapacity);
+		System.out.println("Initially, the the id of product which is in this shelf is "
+				+ shelfToEdit.getProductIdInShelf() + ". Please insert a new product id or the same id:");
+		String updatedProductIdInTheShelf = sc.nextLine();
+		shelfToEdit.setProductIdInShelf(Long.parseLong(updatedProductIdInTheShelf));
+		System.out.println("Initial rent price: " + shelfToEdit.getRentPrice()
+				+ ". Please insert a new rent price or insert the same value:");
+		String updatedRentPrice = sc.nextLine();
+		shelfToEdit.setRentPrice(Integer.parseInt(updatedRentPrice));
+		shelfRepository1.changeEntityById(shelfToEdit);
+	}
+	/**
+	 * 
+	 */
+	public static boolean isInteger(String stringToTest, String typeToTest){
+		try{
+			switch(typeToTest){
+			case "Int":Integer.parseInt(stringToTest);
+			break;
+			case "LongInteger":Long.parseLong(stringToTest);
+			break;
+			}
+			return true;
+		}catch (Exception e){
+			return false;
+		}
 	}
 }
