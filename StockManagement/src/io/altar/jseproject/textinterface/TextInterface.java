@@ -43,7 +43,6 @@ public class TextInterface {
 				break;
 			}
 		} while (!newKeys.equals("1") && !newKeys.equals("2") && !newKeys.equals("3"));
-
 	}
 
 	public static void showProductList() {
@@ -121,15 +120,24 @@ public class TextInterface {
 	 * 
 	 */
 	public static void createProduct() {
-		System.out.println("Please insert price:");
-		int price = sc.nextInt();
-		System.out.println("Please insert discount:");
-		int discount = sc.nextInt();
-		System.out.println("Please insert iva:");
-		int iva = sc.nextInt();
-		sc.nextLine();
+		String price;
+		String discount;
+		String iva;
+		do {
+			System.out.println("Please insert price:");
+			price = sc.nextLine();
+			System.out.println("Please insert discount:");
+			discount = sc.nextLine();
+			System.out.println("Please insert iva:");
+			iva = sc.nextLine();
+			if (!isAValidNumber(iva, 0.0, 100.0) || !isAValidNumber(price, 0.0, 32767.0)
+					|| !isAValidNumber(discount, 0.0, 100.0)) {
+				System.out.println("Please insert values within a reasonable range.");
+			}
+		} while (!isAValidNumber(iva, 0.0, 100.0) || !isAValidNumber(price, 0.0, 32767.0) || !isAValidNumber(discount, 0.0, 100.0));
 		ArrayList<Long> shelvesListAssociatedWithProduct = new ArrayList<Long>();
-		Product product1 = new Product(shelvesListAssociatedWithProduct, discount, iva, price);
+		Product product1 = new Product(shelvesListAssociatedWithProduct, Integer.parseInt(discount),
+				Integer.parseInt(iva), Integer.parseInt(price));
 		productRepository1.createEntity(product1);
 		Iterator<Product> it = productRepository1.showAll();
 		while (it.hasNext()) {
@@ -144,22 +152,30 @@ public class TextInterface {
 	 */
 
 	public static void createShelf() {
-		System.out.println("Please insert shelf capacity:");
-		String capacity1 = sc.nextLine();
-		System.out.println("Please insert a rent price:");
-		int rentPrice1 = sc.nextInt();
-		System.out.println(
-				"Please insert the product id you want to insert in this shelf(if you dont want to insert anything please press just enter:");
-		long productIdInShelf1 = sc.nextLong();
-		sc.nextLine();
-		Shelf shelf1 = new Shelf(capacity1, productIdInShelf1, rentPrice1);
+		String capacity1;
+		String rentPrice1;
+		String productIdInShelf1;
+		do {
+			System.out.println("Please insert shelf capacity:");
+			capacity1 = sc.nextLine();
+			System.out.println("Please insert a rent price:");
+			rentPrice1 = sc.nextLine();
+			System.out.println(
+					"Please insert the product id you want to insert in this shelf(if you dont want to insert anything please press just enter:");
+			productIdInShelf1 = sc.nextLine();
+			if (!isAValidNumber(rentPrice1, 0.0, 32767.0)) {
+				System.out.println("Error! Rent price provided must be a positive integer.");
+			}
+		} while (!isAValidNumber(rentPrice1, 0.0, 32767.0) || !isAValidProductIdNumber(productIdInShelf1));
+
+		Shelf shelf1 = new Shelf(capacity1, Long.parseLong(productIdInShelf1), Integer.parseInt(rentPrice1));
 		shelfRepository1.createEntity(shelf1);
 		Iterator<Shelf> it = shelfRepository1.showAll();
 		while (it.hasNext()) {
 			System.out.println(it.next().shelfToString());
 		}
 		long shelf1Id = shelf1.getId();
-		productRepository1.fetchEntityById(productIdInShelf1).addNewShelfToShelvesList(shelf1Id);
+		productRepository1.fetchEntityById(Long.parseLong(productIdInShelf1)).addNewShelfToShelvesList(shelf1Id);
 	}
 
 	/**
@@ -290,20 +306,35 @@ public class TextInterface {
 		shelfToEdit.setRentPrice(Integer.parseInt(updatedRentPrice));
 		shelfRepository1.changeEntityById(shelfToEdit);
 	}
+
 	/**
 	 * 
 	 */
-	public static boolean isInteger(String stringToTest, String typeToTest){
-		try{
-			switch(typeToTest){
-			case "Int":Integer.parseInt(stringToTest);
-			break;
-			case "LongInteger":Long.parseLong(stringToTest);
-			break;
+	public static boolean isAValidNumber(String stringToTest, double minimum, double maximum) {
+		try {
+			Double.parseDouble(stringToTest);
+			if (Double.parseDouble(stringToTest) <= minimum || Double.parseDouble(stringToTest) >= maximum) {
+				return false;
+			} else {
+				return true;
 			}
-			return true;
-		}catch (Exception e){
+		} catch (Exception e) {
 			return false;
 		}
+
+	}
+
+	public static boolean isAValidProductIdNumber(String StringToTest) {
+		try {
+			if (productRepository1.fetchEntityById(Long.parseLong(StringToTest)) == null) {
+				System.out.println("Error! Invalid Id number.");
+				return false;
+			} else {
+				return true;
+			}
+		} catch (Exception e) {
+			return false;
+		}
+
 	}
 }

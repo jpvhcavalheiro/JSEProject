@@ -5,13 +5,8 @@ public class Product extends Entity {
 	private ArrayList <Long> shelvesIdList;
 	private int discount;
 	private int iva;
-	private int pvp;
-	
-	
-
-	
-	
-	public Product(ArrayList<Long> shelvesIdList, int discount, int iva, int pvp) {
+	private double pvp;
+	public Product(ArrayList<Long> shelvesIdList, int discount, int iva, double pvp) {
 		super();
 		this.shelvesIdList = shelvesIdList;
 		this.discount = discount;
@@ -40,10 +35,10 @@ public class Product extends Entity {
 	public void setIva(int iva) {
 		this.iva = iva;
 	}
-	public int getPvp() {
+	public double getPvp() {
 		return pvp;
 	}
-	public void setPvp(int pvp) {
+	public void setPvp(double pvp) {
 		this.pvp = pvp;
 	}
 	@Override
