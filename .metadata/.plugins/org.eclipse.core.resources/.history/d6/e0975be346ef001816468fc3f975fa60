@@ -134,11 +134,10 @@ public class TextInterface {
 					|| !isAValidNumber(discount, 0.0, 100.0)) {
 				System.out.println("Please insert values within a reasonable range.");
 			}
-		} while (!isAValidNumber(iva, 0.0, 100.0) || !isAValidNumber(price, 0.0, 32767.0)
-				|| !isAValidNumber(discount, 0.0, 100.0));
+		} while (!isAValidNumber(iva, 0.0, 100.0) || !isAValidNumber(price, 0.0, 32767.0) || !isAValidNumber(discount, 0.0, 100.0));
 		ArrayList<Long> shelvesListAssociatedWithProduct = new ArrayList<Long>();
 		Product product1 = new Product(shelvesListAssociatedWithProduct, Integer.parseInt(discount),
-				Integer.parseInt(iva), Double.parseDouble(price));
+				Integer.parseInt(iva), Integer.parseInt(price));
 		productRepository1.createEntity(product1);
 		Iterator<Product> it = productRepository1.showAll();
 		while (it.hasNext()) {
@@ -311,22 +310,14 @@ public class TextInterface {
 	/**
 	 * 
 	 */
-	public static boolean isAValidNumber(String stringToTest, String typeToTest, double minimum, double maximum) {
+	public static boolean isAValidNumber(String stringToTest, double minimum, double maximum) {
 		try {
-			switch (typeToTest) {
-			case "testInt":
-				Integer.parseInt(stringToTest);
-				break;
-			case "testDouble":
-				Double.parseDouble(stringToTest);
-				break;
-			}
+			Double.parseDouble(stringToTest);
 			if (Double.parseDouble(stringToTest) <= minimum || Double.parseDouble(stringToTest) >= maximum) {
 				return false;
 			} else {
 				return true;
 			}
-
 		} catch (Exception e) {
 			return false;
 		}
