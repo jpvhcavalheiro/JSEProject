@@ -134,7 +134,7 @@ public class TextInterface {
 					|| !isAValidNumber(discount, 0.0, 100.0)) {
 				System.out.println("Please insert values within a reasonable range.");
 			}
-		} while (!isAValidNumber(iva, "testInt", 0.0, 100.0) || !isAValidNumber(price, 0.0, 32767.0)
+		} while (!isAValidNumber(iva, 0.0, 100.0) || !isAValidNumber(price, 0.0, 32767.0)
 				|| !isAValidNumber(discount, 0.0, 100.0));
 		ArrayList<Long> shelvesListAssociatedWithProduct = new ArrayList<Long>();
 		Product product1 = new Product(shelvesListAssociatedWithProduct, Integer.parseInt(discount),
@@ -164,10 +164,10 @@ public class TextInterface {
 			System.out.println(
 					"Please insert the product id you want to insert in this shelf(if you dont want to insert anything please press just enter:");
 			productIdInShelf1 = sc.nextLine();
-			if (!isAValidNumber(rentPrice1, "testDouble", 0.0, 32767.0)) {
+			if (!isAValidNumber(rentPrice1, 0.0, 32767.0)) {
 				System.out.println("Error! Rent price provided must be a positive integer.");
 			}
-		} while (!isAValidNumber(rentPrice1, "testDouble", 0.0, 32767.0) || !isAValidProductIdNumber(productIdInShelf1));
+		} while (!isAValidNumber(rentPrice1, 0.0, 32767.0) || !isAValidProductIdNumber(productIdInShelf1));
 
 		Shelf shelf1 = new Shelf(capacity1, Long.parseLong(productIdInShelf1), Integer.parseInt(rentPrice1));
 		shelfRepository1.createEntity(shelf1);
