@@ -23,13 +23,6 @@ public class Product extends Entity {
 	public void addNewShelfToShelvesList(long newShelfId) {
 		shelvesIdList.add(newShelfId);
 	}
-	
-	public ArrayList<Long> getShelvesIdList() {
-		return shelvesIdList;
-	}
-	public void setShelvesIdList(ArrayList<Long> shelvesIdList) {
-		this.shelvesIdList = shelvesIdList;
-	}
 	public int getDiscount() {
 		return discount;
 	}

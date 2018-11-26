@@ -272,23 +272,10 @@ public class TextInterface {
 	/* verifique se existe o id */
 
 	public static void removeShelf() {
-		String shelfIdToRemove;
-		String confirmationOfShelfIdToRemove;
-		do{
-			System.out.println("Please insert the shelf id you want to remove:");
-			shelfIdToRemove = sc.nextLine();
-			if(!isAValidShelfIdNumber(shelfIdToRemove)){
-				System.out.println("Error! There is no such shelf!");
-			}
-		}while(!isAValidShelfIdNumber(shelfIdToRemove));
-		do{
-			System.out.println("Are you sure you want to remove the product whose id is " + shelfIdToRemove + "? Please isert yes or no.");
-			confirmationOfShelfIdToRemove = sc.nextLine();
-			if(!confirmationOfShelfIdToRemove.equals("yes") && !confirmationOfShelfIdToRemove.equals("no")){
-				System.out.println("Error! Please insert yes or no!");
-			}
-		}while(!confirmationOfShelfIdToRemove.equals("yes") && !confirmationOfShelfIdToRemove.equals("no"));
-		
+		System.out.println("Please insert the shelf id you want to remove:");
+		String shelfIdToRemove = sc.nextLine();
+		System.out.println("Are you sure you want to remove the product whose id is " + shelfIdToRemove + "?");
+		String confirmationOfShelfIdToRemove = sc.nextLine();
 		if (confirmationOfShelfIdToRemove.equals("yes")) {
 			shelfRepository1.deleteEntityById(Long.parseLong(shelfIdToRemove));
 		}
@@ -347,6 +334,7 @@ public class TextInterface {
 		shelfToEdit.setRentPrice(Integer.parseInt(updatedRentPrice));
 		shelfRepository1.changeEntityById(shelfToEdit);
 	}
+
 	/**
 	 * 
 	 */
@@ -365,10 +353,13 @@ public class TextInterface {
 			} else {
 				return true;
 			}
+
 		} catch (Exception e) {
 			return false;
 		}
+
 	}
+
 	public static boolean isAValidProductIdNumber(String StringToTest) {
 		try {
 			Long.parseLong(StringToTest);
@@ -380,6 +371,7 @@ public class TextInterface {
 		} catch (Exception e) {
 			return false;
 		}
+
 	}
 	public static boolean isAValidShelfIdNumber(String stringToTest){
 		try{
