@@ -27,6 +27,13 @@ public class Product extends Entity {
 	public ArrayList<Long> getShelvesIdList() {
 		return shelvesIdList;
 	}
+	public void deleteSheldIdFromShelvesIdList(long shelfIdToDelete){
+		for(long item:shelvesIdList){
+			if(item==shelfIdToDelete){
+				
+			}
+		}
+	}
 	public void setShelvesIdList(ArrayList<Long> shelvesIdList) {
 		this.shelvesIdList = shelvesIdList;
 	}
